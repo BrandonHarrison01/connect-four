@@ -8,7 +8,7 @@ class Columns extends React.Component {
             [0, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
-            [1, 0, 0, 0]
+            [0, 0, 0, 0]
         ]
 
         
@@ -17,6 +17,9 @@ class Columns extends React.Component {
         const addPiece = (column, player) => {
             if(this.state[this.state.length - 1][column] === 0) {
                 this.state[this.state.length - 1][column] = player
+            } else if(this.state[0][column] > 0){
+                console.log('cannot move there')
+                return
             } else {
                 for(let row = 1; row < this.state.length; row++){
                     if(this.state[row][column] > 0) {
