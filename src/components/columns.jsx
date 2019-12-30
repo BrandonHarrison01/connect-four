@@ -1,6 +1,6 @@
 import React from 'react'
 
-import gameBoard from '../logic'
+import '../columns.scss'
 
 class Columns extends React.Component {
     state = 
@@ -37,15 +37,21 @@ class Columns extends React.Component {
 
         return (
             <div>
-                <button onClick={() => addPiece(0, 1)}>p1 butt 1</button>
-                <button onClick={() => addPiece(1, 1)}>p1 butt 2</button>
-                <button onClick={() => addPiece(2, 1)}>p1 butt 3</button>
-                <button onClick={() => addPiece(3, 1)}>p1 butt 4</button>
+                <div className="display-none">
+                    <h2>Player 1</h2>
+                    <button onClick={() => addPiece(0, 1)}>butt 1</button>
+                    <button onClick={() => addPiece(1, 1)}>butt 2</button>
+                    <button onClick={() => addPiece(2, 1)}>butt 3</button>
+                    <button onClick={() => addPiece(3, 1)}>butt 4</button>
+                </div>
+                <div className="player-2">
+                    <h2>Player 1</h2>
+                    <button onClick={() => addPiece(0, 2)}>butt 1</button>
+                    <button onClick={() => addPiece(1, 2)}>butt 2</button>
+                    <button onClick={() => addPiece(2, 2)}>butt 3</button>
+                    <button onClick={() => addPiece(3, 2)}>butt 4</button>
+                </div>
                 {this.state.map(board => <h1>{board}</h1>)}
-                <button onClick={() => addPiece(0, 2)}>p2 butt 1</button>
-                <button onClick={() => addPiece(1, 2)}>p2 butt 2</button>
-                <button onClick={() => addPiece(2, 2)}>p2 butt 3</button>
-                <button onClick={() => addPiece(3, 2)}>p2 butt 4</button>
             </div>
         )
     }
