@@ -49,19 +49,19 @@ class Columns extends React.Component {
 
         return (
             <div>
-                <div className={this.state.player === 2 ? "display-none" : ""}>
+                <div className = {this.state.player === 2 ? "display-none" : ""}>
                     <h2>Player 1</h2>
-                    <button onClick={() => addPiece(0, 1)}>butt 1</button>
-                    <button onClick={() => addPiece(1, 1)}>butt 2</button>
-                    <button onClick={() => addPiece(2, 1)}>butt 3</button>
-                    <button onClick={() => addPiece(3, 1)}>butt 4</button>
+                    <button className = 'display-hidden' onClick={() => addPiece(0, 1)} />
+                    <button className = 'display-hidden' onClick={() => addPiece(1, 1)} />
+                    <button className = 'display-hidden' onClick={() => addPiece(2, 1)} />
+                    <button className = 'display-hidden' onClick={() => addPiece(3, 1)} />
                 </div>
                 <div className={this.state.player === 1 ? "display-none" : ""}>
                     <h2>Player 2</h2>
-                    <button onClick={() => addPiece(0, 2)}>butt 1</button>
-                    <button onClick={() => addPiece(1, 2)}>butt 2</button>
-                    <button onClick={() => addPiece(2, 2)}>butt 3</button>
-                    <button onClick={() => addPiece(3, 2)}>butt 4</button>
+                    <button className = 'display-hidden' onClick={() => addPiece(0, 2)} />
+                    <button className = 'display-hidden' onClick={() => addPiece(1, 2)} />
+                    <button className = 'display-hidden' onClick={() => addPiece(2, 2)} />
+                    <button className = 'display-hidden' onClick={() => addPiece(3, 2)} />
                 </div>
                 {this.state.board.map(board => <h1>{board}</h1>)}
             </div>
