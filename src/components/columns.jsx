@@ -20,7 +20,7 @@ class Columns extends React.Component {
             if(this.state.board[this.state.board.length - 1][column] === 0) {
                 this.state.board[this.state.board.length - 1][column] = player
             } else if(this.state.board[0][column] > 0){
-                console.log('cannot move there')
+                // console.log('cannot move there')
                 return
             } else {
                 for(let row = 1; row < this.state.board.length; row++){
@@ -32,7 +32,7 @@ class Columns extends React.Component {
                             this.state.player = 1
                         }
                         this.forceUpdate()
-                        console.log(row - 1, column, 'return')
+                        // console.log(row - 1, column, 'return')
                         return
                     }
                     console.log(row, column)
