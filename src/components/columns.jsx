@@ -65,7 +65,7 @@ class Columns extends React.Component {
                 </div>
                 {this.state.board.map(board => 
                     // console.log(board[0], 'board 0');
-                    board.map(b => <h1>{b}</h1>)
+                    board.map(b => <h1 className={ b === 0 ? 'empty' : b === 1 ? 'p1' : b === 2 ? 'p2' : '' }>{b}</h1>)
                 )}
             </div>
         )
