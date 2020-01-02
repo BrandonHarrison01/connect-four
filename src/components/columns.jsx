@@ -63,7 +63,10 @@ class Columns extends React.Component {
                     <button className = 'display-hidden' onClick={() => addPiece(2, 2)} />
                     <button className = 'display-hidden' onClick={() => addPiece(3, 2)} />
                 </div>
-                {this.state.board.map(board => <h1>{board}</h1>)}
+                {this.state.board.map(board => 
+                    // console.log(board[0], 'board 0');
+                    board.map(b => <h1>{b}</h1>)
+                )}
             </div>
         )
     }
