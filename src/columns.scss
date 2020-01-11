@@ -17,14 +17,35 @@
     }
 }
 
+.board {
+    text-align: center;
+    border: 1px solid red;
+}
+
+.row {
+    text-align: center;
+    border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+}
+
 .empty {
-    color: black;
+    height: 20px;
+    width: 20px;
+    background-color: black;
+    margin: 5px;
 }
 
 .p1 {
-    color: orange;
+    height: 20px;
+    width: 20px;
+    margin: 5px;
+    background-color: orange;
 }
 
 .p2 {
-    color: red;
+    height: 20px;
+    width: 20px;
+    margin: 5px;
+    background-color: red;
 }
