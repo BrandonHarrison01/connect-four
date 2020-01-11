@@ -65,28 +65,28 @@ class Columns extends React.Component {
                 </div>
                 <div className='board'>
                     <div className='row'>
-                        <div className = { this.state.board[0][0] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[1][0] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[2][0] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[3][0] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[0][0] === 1 ? 'p1' : this.state.board[0][0] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[0][1] === 1 ? 'p1' : this.state.board[0][1] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[0][2] === 1 ? 'p1' : this.state.board[0][2] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[0][3] === 1 ? 'p1' : this.state.board[0][3] === 2 ? 'p2' : 'empty'} />
                     </div>
                     <div className='row'>
-                        <div className = { this.state.board[0][1] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[1][1] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[2][1] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[3][1] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[1][0] === 1 ? 'p1' : this.state.board[1][0] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[1][1] === 1 ? 'p1' : this.state.board[1][1] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[1][2] === 1 ? 'p1' : this.state.board[1][2] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[1][3] === 1 ? 'p1' : this.state.board[1][3] === 2 ? 'p2' : 'empty'} />
                     </div>
                     <div className='row'>
-                        <div className = { this.state.board[0][2] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[1][2] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[2][2] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[3][2] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[2][0] === 1 ? 'p1' : this.state.board[2][0] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[2][1] === 1 ? 'p1' : this.state.board[2][1] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[2][2] === 1 ? 'p1' : this.state.board[2][2] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[2][3] === 1 ? 'p1' : this.state.board[2][3] === 2 ? 'p2' : 'empty'} />
                     </div>
                     <div className='row'>
-                        <div className = { this.state.board[0][3] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[1][3] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[2][3] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
-                        <div className = { this.state.board[3][3] == 1 ? 'p1' : this.state.board[0][0] == 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[3][0] === 1 ? 'p1' : this.state.board[3][0] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[3][1] === 1 ? 'p1' : this.state.board[3][1] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[3][2] === 1 ? 'p1' : this.state.board[3][2] === 2 ? 'p2' : 'empty'} />
+                        <div className = { this.state.board[3][3] === 1 ? 'p1' : this.state.board[3][3] === 2 ? 'p2' : 'empty'} />
                     </div>
                 </div>
             </div>
