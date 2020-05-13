@@ -87,7 +87,7 @@ function Columns() {
       <div className='game-controls'>
         {board[0].map((val, index) => (
           <p
-            className='display-hidden'
+            className={player === 1 ? 'display-hidden one' : 'display-hidden two'}
             onClick={() => addPiece(index, player)}
           />
         ))}
