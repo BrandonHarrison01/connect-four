@@ -30,17 +30,17 @@ function Columns() {
 
     for(let y = 5; y >= 0; y--){
       for(let x = 0; x < 7; x++){
-        if(board[y][x] > 0){
-          if(board[y][x] === board[y - 1][x - 1] && board[y][x] === board[y - 2][x - 2] && board[y][x] === board[y - 3][x - 3]){
+        if(board[y][x] > 0 && board[y - 1]){
+          if(board[y][x] === board[y - 1][x - 1]){
             console.log('player wins slope down')
           }
-          if(board[y][x] === board[y - 1][x] && board[y][x] === board[y - 2][x] && board[y][x] === board[y - 3][x]){
+          if(board[y][x] === board[y - 1][x]){
             console.log('player wins vertical')
           }
-          if(board[y][x] === board[y - 1][x + 1] && board[y - 1][x + 1] === board[y - 2][x + 2] && board[y][x] === board[y - 3][x + 3]){
+          if(board[y][x] === board[y - 1][x + 1]){
             console.log('player wins slope up')
           }
-          if(board[y][x] === board[y][x + 1] && board[y][x] === board[y][x + 2] && board[y][x] === board[y][x + 3]){
+          if(board[y][x] === board[y][x + 1]){
             console.log('player wins horizontal')
           }
         }
