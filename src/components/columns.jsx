@@ -11,12 +11,12 @@ function Columns() {
     [0, 0, 0, 0, 0, 0, 0],
   ]);
   let [player, setPlayer] = useState(1);
+  let [playerWon, setPlayerWon] = useState(false)
+
 
   useEffect(() => {
-
     // check for 4 connecting pieces
     // runs after every turn
-
 
     // start at board[5][0]
       // iterate horizontally left to right then vertically bottom to top
@@ -41,12 +41,12 @@ function Columns() {
                   return
               }
           }
-          console.log(ar[0], 'wins')
+          setPlayerWon(ar[0])
+          return
       }
 
         if(board[y][x] && y > 2 && x > 2){
           slopeDown = [board[y][x], board[y-1][x-1], board[y-2][x-2], board[y-3][x-3]]
-          // run function to check that all nodes are some pass slope down as parameter
           winCheck(slopeDown)
         }
         
@@ -64,42 +64,10 @@ function Columns() {
           horizontal = [board[y][x], board[y][x+1], board[y][x+2], board[y][x+3]]
           winCheck(horizontal)
         }
-
-        // if(board[y][x] && y > 1){
-        //   console.log(slopeDown)
-        // }
-
-        // if(board[y][x] > 0 && board[y - 1]){
-        //   const ar = [2, 3]
-
-        //   if(board[y][x] === board[y - 1][x - 1]){
-        //     console.log('player wins slope down')
-        //   }
-
-        //   if(board[y][x] === board[y - 1][x]){
-        //     console.log('player wins vertical')
-        //   }
-
-        //   if(board[y][x] === board[y - 1][x + 1]){
-        //     console.log('player wins slope up')
-        //   }
-
-        //   if(board[y][x] === board[y][x + 1]){
-        //     console.log('player wins horizontal')
-        //   }
-        // }
       }
     }
-      
-
-
-
-
-
-
-
-    console.log('runs when new piece added')
   }, [ player ])
+
 
   const addPiece = (y, p) => {
     for (let x = 5; x >= 0; x--) {
@@ -143,6 +111,8 @@ function Columns() {
           ))}
         </div>
       ))}
+      {playerWon === 1 && <p>Black Wins!</p>}
+      {playerWon === 2 && <p>Red Wins!</p>}
     </div>
   );
 }
