@@ -66,7 +66,7 @@ function Columns() {
         }
       }
     }
-  }, [ player ])
+  }, [ player, board ])
 
 
   const addPiece = (y, p) => {

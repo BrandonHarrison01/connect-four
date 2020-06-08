@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Columns from './components/Columns'
+import Columns from './components/columns'
 
 import './App.css';
 
