@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "../columns.scss";
+import "../pvp-board.scss";
 
-function Columns() {
+function PvpBoard() {
   let [board, setBoard] = useState([
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -17,16 +17,6 @@ function Columns() {
   useEffect(() => {
     // check for 4 connecting pieces
     // runs after every turn
-
-    // start at board[5][0]
-      // iterate horizontally left to right then vertically bottom to top
-      //(nested for loop outer representing y axis starting at 5 and decrementing. Inner representing x 0 to 6)
-        // if > 0 
-          // if [y][x] === [y - 1][x - 1]
-          // if [y][x] === [y][x - 1]
-          // if [y][x] === [y + 1][x + 1]
-          // if [y][x] === [y - 1][x]
-            // 1 and 2 more places in that direction are equal player wins
 
     for(let y = 5; y >= 0; y--){
       for(let x = 0; x < 7; x++){
@@ -99,15 +89,16 @@ function Columns() {
       <div className='game-controls'>
         {board[0].map((val, index) => (
           <p
+            key={index}
             className={player === 1 ? 'display-hidden one' : 'display-hidden two'}
             onClick={() => addPiece(index, player)}
           />
         ))}
       </div>
       {board.map((row, index) => (
-        <div className='row'>
-          {board[index].map((piece) => (
-            <p className={piece === 0 ? "empty" : piece === 1 ? "p1" : "p2"} />
+        <div key={index} className='row'>
+          {board[index].map((piece, i) => (
+            <p key={i} className={piece === 0 ? "empty" : piece === 1 ? "p1" : "p2"} />
           ))}
         </div>
       ))}
@@ -117,4 +108,4 @@ function Columns() {
   );
 }
 
-export default Columns;
+export default PvpBoard;
