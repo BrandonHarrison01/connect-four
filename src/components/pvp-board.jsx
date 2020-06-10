@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "../pvp-board.scss";
 
 function PvpBoard() {
   let [board, setBoard] = useState([
@@ -95,13 +94,15 @@ function PvpBoard() {
           />
         ))}
       </div>
-      {board.map((row, index) => (
-        <div key={index} className='row'>
-          {board[index].map((piece, i) => (
-            <p key={i} className={piece === 0 ? "empty" : piece === 1 ? "p1" : "p2"} />
-          ))}
-        </div>
-      ))}
+      <div className='game'>
+        {board.map((row, index) => (
+          <div key={index} className='row'>
+            {board[index].map((piece, i) => (
+              <p key={i} className={piece === 0 ? "empty" : piece === 1 ? "p1" : "p2"} />
+            ))}
+          </div>
+        ))}
+      </div>
       {playerWon === 1 && <p>Black Wins!</p>}
       {playerWon === 2 && <p>Red Wins!</p>}
     </div>

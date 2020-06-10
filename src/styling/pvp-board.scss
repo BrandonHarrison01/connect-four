@@ -1,0 +1,68 @@
+.display-none {
+    display: none
+}
+
+.board {
+    margin: 20px auto;
+    width: 320px;
+
+    .game-controls{
+        display: flex;
+        justify-content: center;        
+        padding: 10px 0;
+        margin-bottom: 10px;
+    
+        .display-hidden {
+            height: 30px;
+            width: 30px;
+            padding: 0;
+            margin: 5px;
+            border-radius: 15px;
+            background-color: rgba(128, 128, 128, 0.596);
+        }
+    
+        .one:hover {
+            background-color: black;
+        }
+    
+        .two:hover {
+            background-color: red;
+        }
+    }
+
+    .game {
+        background-color: yellow;
+        padding: 10px;
+        
+        .row {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+    
+            .empty {
+                height: 30px;
+                width: 30px;
+                background-color: rgb(74, 141, 248);
+                margin: 5px;
+                border-radius: 15px;
+            }
+        }
+        
+        .p1 {
+            height: 30px;
+            width: 30px;
+            margin: 5px;
+            background-color: black;
+            border-radius: 15px;
+        }
+        
+        .p2 {
+            height: 30px;
+            width: 30px;
+            margin: 5px;
+            background-color: red;
+            border-radius: 15px;
+        }
+    }
+}
+
