@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PlayerWon from './player-won'
 
 function PvpBoard() {
   let [board, setBoard] = useState([
@@ -11,6 +12,8 @@ function PvpBoard() {
   ]);
   let [player, setPlayer] = useState(1);
   let [playerWon, setPlayerWon] = useState(false)
+  let [redWins, setRedWins] = useState(0)
+  let [blackWins, setBlackWins] = useState(0)
 
 
   useEffect(() => {
@@ -55,7 +58,11 @@ function PvpBoard() {
         }
       }
     }
-  }, [ player, board ])
+
+    playerWon === 1 && setBlackWins(prev => prev + 1)
+    playerWon === 2 && setRedWins(prev => prev + 1)
+
+  }, [ player, board, playerWon ])
 
 
   const addPiece = (y, p) => {
@@ -83,8 +90,22 @@ function PvpBoard() {
     return;
   };
 
+  const resetBoard = () => {
+    setBoard([
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+    ])
+    setPlayerWon(false)
+  }
+
   return (
     <div className='board'>
+      <p>Red Wins: {redWins}</p>
+      <p>Black Wins: {blackWins}</p>
       <div className='game-controls'>
         {board[0].map((val, index) => (
           <p
@@ -103,8 +124,7 @@ function PvpBoard() {
           </div>
         ))}
       </div>
-      {playerWon === 1 && <p>Black Wins!</p>}
-      {playerWon === 2 && <p>Red Wins!</p>}
+      {playerWon > 0 && <PlayerWon player={player} resetBoard={resetBoard} />}
     </div>
   );
 }
