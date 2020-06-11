@@ -102,10 +102,18 @@ function PvpBoard() {
     setPlayerWon(false)
   }
 
+  const resetWins = () => {
+    setRedWins(0)
+    setBlackWins(0)
+  }
+
   return (
     <div className='board'>
-      <p>Red Wins: {redWins}</p>
-      <p>Black Wins: {blackWins}</p>
+      <div className='score-board'>
+        <p>Red: {redWins}</p>
+        <p>Black: {blackWins}</p>
+        <button onClick={resetWins}>Clear</button>
+      </div>
       <div className='game-controls'>
         {board[0].map((val, index) => (
           <p

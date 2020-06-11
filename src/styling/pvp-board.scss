@@ -6,6 +6,14 @@
     margin: 20px auto;
     width: 320px;
 
+    .score-board{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid black;
+        padding: 10px;
+    }
+
     .game-controls{
         display: flex;
         justify-content: center;        
