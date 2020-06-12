@@ -1,6 +1,22 @@
-.win-modal{
-    margin: 100px auto;
-    border: 3px solid yellow;
-    text-align: center;
-    background-color: rgb(181, 209, 255);
+.modal {
+    background: rgba(0, 0, 0, 0.472);
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    .win-modal {
+        margin: 200px auto;
+        border: 3px solid yellow;
+        text-align: center;
+        background-color: rgb(181, 209, 255);
+        width: 80%;
+        padding: 50px 0;
+
+        h3 {
+            font-size: 1.5rem;
+        }
+    }
 }
