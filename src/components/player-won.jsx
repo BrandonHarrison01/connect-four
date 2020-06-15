@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function PlayerWon(props) {
     return(
@@ -7,6 +8,7 @@ function PlayerWon(props) {
                 {props.player === 1 && <h3>red wins</h3>}
                 {props.player === 2 && <h3>black wins</h3>}
                 <button onClick={props.resetBoard}>Reset</button>
+                <Link to=''>Menu</Link>
             </div>
         </div>
     )

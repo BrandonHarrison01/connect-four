@@ -9,7 +9,7 @@ function Menu() {
                 <h3>Local</h3>
                 <ul>
                     <li><Link to='/local-pvp'>PVP</Link></li>
-                    <li>AI</li>
+                    <li><Link to='/local-ai'>AI</Link></li>
                 </ul>
             </div>
             <div className='menu-option'>

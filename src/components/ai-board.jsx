@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
 import PlayerWon from './player-won'
+import { useCallback } from "react";
 
-function PvpBoard() {
+function AiBoard() {
   let [board, setBoard] = useState([
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -13,6 +14,7 @@ function PvpBoard() {
   ]);
   let [player, setPlayer] = useState(1);
   let [playerWon, setPlayerWon] = useState(false)
+  let [redMoves, setRedMoves] = useState(0)
   let [redWins, setRedWins] = useState(0)
   let [blackWins, setBlackWins] = useState(0)
 
@@ -87,9 +89,20 @@ function PvpBoard() {
       }
     }
 
+    player === 2 && setRedMoves(redMoves = redMoves + 1)
     player === 1 ? setPlayer(2) : setPlayer(1);
     return;
   };
+
+
+  // ai runs after every player move
+  // cheks for 3 connecting pieces if none builds on most connected ai
+  // player === red
+  // computer === black
+
+  useEffect(() => {
+    addPiece(4, 1)
+  }, [ redMoves ])
 
   const resetBoard = () => {
     setBoard([
@@ -111,8 +124,8 @@ function PvpBoard() {
   return (
     <div className='board'>
       <div className='score-board'>
-        <p>Red: {redWins}</p>
-        <p>Black: {blackWins}</p>
+        <p>Human: {redWins}</p>
+        <p>AI: {blackWins}</p>
         <button onClick={resetWins}>Clear</button>
       </div>
       <div className='game-controls'>
@@ -139,4 +152,4 @@ function PvpBoard() {
   );
 }
 
-export default PvpBoard;
+export default AiBoard;
