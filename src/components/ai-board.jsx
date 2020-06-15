@@ -14,7 +14,7 @@ function AiBoard() {
   ]);
   let [player, setPlayer] = useState(1);
   let [playerWon, setPlayerWon] = useState(false)
-  let [redMoves, setRedMoves] = useState(0)
+  let [blackMoves, setBlackMoves] = useState(0)
   let [redWins, setRedWins] = useState(0)
   let [blackWins, setBlackWins] = useState(0)
 
@@ -37,6 +37,8 @@ function AiBoard() {
               }
           }
           setPlayerWon(ar[0])
+          console.log(playerWon, 'player won')
+          setBlackMoves(0)
           return
       }
 
@@ -62,8 +64,8 @@ function AiBoard() {
       }
     }
 
-    playerWon === 1 && setBlackWins(prev => prev + 1)
-    playerWon === 2 && setRedWins(prev => prev + 1)
+    playerWon === 2 && setBlackWins(prev => prev + 1)
+    playerWon === 1 && setRedWins(prev => prev + 1)
 
   }, [ player, board, playerWon ])
 
@@ -89,7 +91,7 @@ function AiBoard() {
       }
     }
 
-    player === 2 && setRedMoves(redMoves = redMoves + 1)
+    player === 1 && setBlackMoves(prev => prev + 1)
     player === 1 ? setPlayer(2) : setPlayer(1);
     return;
   };
@@ -97,12 +99,16 @@ function AiBoard() {
 
   // ai runs after every player move
   // cheks for 3 connecting pieces if none builds on most connected ai
-  // player === red
-  // computer === black
+  // player === black === 1
+  // computer === red === 2
 
   useEffect(() => {
-    addPiece(4, 1)
-  }, [ redMoves ])
+    if(blackMoves === 1){
+      addPiece(4, 2)
+    } else if(blackMoves > 1){
+      addPiece(5, 2)
+    }
+  }, [ blackMoves ])
 
   const resetBoard = () => {
     setBoard([
@@ -147,7 +153,7 @@ function AiBoard() {
         ))}
       </div>
       <Link to='/'>Menu</Link>
-      {playerWon > 0 && <PlayerWon player={player} resetBoard={resetBoard} />}
+      {playerWon > 0 && <PlayerWon playerWon={playerWon} resetBoard={resetBoard} />}
     </div>
   );
 }

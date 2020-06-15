@@ -134,7 +134,7 @@ function PvpBoard() {
         ))}
       </div>
       <Link to='/'>Menu</Link>
-      {playerWon > 0 && <PlayerWon player={player} resetBoard={resetBoard} />}
+      {playerWon > 0 && <PlayerWon playerWon={playerWon} resetBoard={resetBoard} />}
     </div>
   );
 }
