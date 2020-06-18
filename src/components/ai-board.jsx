@@ -64,8 +64,8 @@ function AiBoard() {
       }
     }
 
-    playerWon === 2 && setBlackWins(prev => prev + 1)
-    playerWon === 1 && setRedWins(prev => prev + 1)
+    playerWon === 1 && setBlackWins(prev => prev + 1)
+    playerWon === 2 && setRedWins(prev => prev + 1)
 
   }, [ player, board, playerWon ])
 
@@ -103,12 +103,34 @@ function AiBoard() {
   // computer === red === 2
 
   useEffect(() => {
-    if(blackMoves === 1){
-      addPiece(4, 2)
-    } else if(blackMoves > 1){
-      addPiece(5, 2)
+    for(let y = 5; y >= 0; y--){
+      for(let x = 0; x < 7; x++){
+        let vert = []
+        let hor = []
+        let up = []
+        let down = []
+
+        const check = ar => {
+          for(let i = 0; i < 3; i++){
+            if(ar[0] !== ar[i]){
+              return false
+            }
+          }
+          return true
+        }
+
+        if(board[y][x] && y > 2){
+          vert = [board[y][x], board[y-1][x], board[y-2][x]]
+          if(check(vert)){
+            addPiece(x, 2)
+          } else {
+            addPiece(6, 2)
+          }
+        }
+      }
     }
-  }, [ blackMoves ])
+
+  }, [ blackMoves, board ])
 
   const resetBoard = () => {
     setBoard([
@@ -130,8 +152,8 @@ function AiBoard() {
   return (
     <div className='board'>
       <div className='score-board'>
-        <p>Human: {redWins}</p>
-        <p>AI: {blackWins}</p>
+        <p>Human: {blackWins}</p>
+        <p>AI: {redWins}</p>
         <button onClick={resetWins}>Clear</button>
       </div>
       <div className='game-controls'>
