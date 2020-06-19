@@ -120,34 +120,29 @@ function AiBoard() {
 
             // horizontal check
             } else if(current === board[y][x + 1] && current === board[y][x + 2] && x < 5){
+              // edge case backwards piece add
+              if(x === 4){
+                addPiece(x - 1, 2)
+              }
+
               if(!board[y][x + 3]){
                 if(y === 5 || board[y + 1][x + 3] > 0){
                   addPiece(x + 3, 2)
                   return
                 }
               }
-              
             }
-          }
 
-          // no connected 3
-          addPiece(6, 2)
-          return
-  
-          // if(board[y][x] && x < 4){
-          //   hor = [board[y][x], board[y][x+1], board[y][x+2]]
-          //   if(check(hor)){
-          //     if(y = 5 || board[y + 1][x + 3]){
-          //       addPiece(x + 3, 2)
-          //     } else {
-          //       addPiece(6, 2)
-          //     }
-          //   } else {
-          //     addPiece(6, 2)
-          //   }
-          // }
+            //slope up check
+
+            //slope down check
+
+          }
         }
       }
+      // no connected 3
+      addPiece(6, 2)
+      return
     }
 
   }, [ blackMoves ])
