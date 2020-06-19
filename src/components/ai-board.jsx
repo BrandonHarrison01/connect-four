@@ -104,6 +104,10 @@ function AiBoard() {
 
   useEffect(() => {
     if(blackMoves > 0){
+
+      // DEFENSE
+
+      // iterating through every space on the board
       for(let y = 5; y >= 0; y--){
         for(let x = 0; x < 7; x++){
           let current = board[y][x]
@@ -120,11 +124,16 @@ function AiBoard() {
 
             // horizontal check
             } else if(current === board[y][x + 1] && current === board[y][x + 2] && x < 5){
+
               // edge case backwards piece add
               if(x === 4){
-                addPiece(x - 1, 2)
+                if(y === 5 || board[y + 1][x - 1] > 0){
+                  addPiece(x - 1, 2)
+                  return
+                }
               }
 
+              // check that piece ends up in horizontal line when added
               if(!board[y][x + 3]){
                 if(y === 5 || board[y + 1][x + 3] > 0){
                   addPiece(x + 3, 2)
@@ -140,8 +149,12 @@ function AiBoard() {
           }
         }
       }
+
+      // OFFENSE
+       
       // no connected 3
-      addPiece(6, 2)
+      let random = Math.random() * (7 - 1) + 1
+      addPiece(Math.floor(random - 1), 2)
       return
     }
 
