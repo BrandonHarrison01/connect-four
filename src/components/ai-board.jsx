@@ -102,6 +102,10 @@ function AiBoard() {
   // player === black === 1
   // computer === red === 2
 
+  // NEED TO ACCOUNT FOR 2 AND 1 CONNECTION FOR SLOPES AND HORIZONTAL
+
+  // since size of board is not dynamic o(n * 2) ! o(n^2)??
+
   useEffect(() => {
     if(blackMoves > 0){
 
@@ -118,25 +122,47 @@ function AiBoard() {
             // vertical check
             if(current === board[y - 1][x] && current === board[y - 2][x] && y > 2){
               if(!board[y - 3][x]){
+                console.log('vertical')
                 addPiece(x, 2)
                 return
               }
 
             // horizontal check
-            } else if(current === board[y][x + 1] && current === board[y][x + 2] && x < 5){
+            } else if(current === board[y][x + 1] && x < 6){
 
               // edge case backwards piece add
-              if(x === 4){
+              if(x === 4 && current === board[y][6]){
                 if(y === 5 || board[y + 1][x - 1] > 0){
+                  console.log('horizontal backwards')
                   addPiece(x - 1, 2)
                   return
                 }
               }
 
-              // check that piece ends up in horizontal line when added
-              if(!board[y][x + 3]){
+              // if 3 connected pieces and 4th piece is empty
+              if(current === board[y][x + 2] && !board[y][x + 3]){
+                // check that piece ends up in horizontal line when added
                 if(y === 5 || board[y + 1][x + 3] > 0){
+                  console.log('horizontal 3')
                   addPiece(x + 3, 2)
+                  return
+                }
+              }
+
+              // if 2 and 1 connected pieces and 3rd piece is empty
+              if(current === board[y][x + 3] && !board[y][x + 2]){
+                if(y === 5 || board[y + 1][x + 2] > 0){
+                  console.log('horizontal 2 and 1')
+                  addPiece(x + 2, 2)
+                  return
+                }
+              }
+
+              // if 1 and 2 connected pieces and 2nd piece is empty
+              if(current === board[y][x - 2] && !board[y][x - 1]){
+                if(y === 5 || board[y + 1][x - 1] > 0){
+                  console.log('horizontal 1 and 2')
+                  addPiece(x - 1, 2)
                   return
                 }
               }
@@ -152,9 +178,14 @@ function AiBoard() {
 
       // OFFENSE
        
-      // no connected 3
-      let random = Math.random() * (7 - 1) + 1
-      addPiece(Math.floor(random - 1), 2)
+      // ↓ UNCOMMENT FOR RANDOM PIECE PLACEMENT ↓
+      // let random = Math.random() * (7 - 1) + 1
+      // addPiece(Math.floor(random - 1), 2)
+      // return
+
+      // ↓ UNCOMMENT FOR CONSISTENT PIECE PLACEMENT ↓
+      console.log('last slot')
+      addPiece(6, 2)
       return
     }
 
