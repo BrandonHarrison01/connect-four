@@ -120,7 +120,7 @@ function AiBoard() {
           if(current > 0){
 
             // vertical check
-            if(current === board[y - 1][x] && current === board[y - 2][x] && y > 2){
+            if(y > 2 && current === board[y - 1][x] && current === board[y - 2][x]){
               if(!board[y - 3][x]){
                 console.log('vertical')
                 addPiece(x, 2)
@@ -166,9 +166,19 @@ function AiBoard() {
                   return
                 }
               }
-            }
 
             //slope up check
+            } else if(x < 6 && y > 0 && current === board[y - 1][x + 1]){
+
+              // three connected and 4 is empty
+              if(current === board[y - 2][x + 2] && !board[y - 3][x + 3] && board[y - 2][x + 3] > 0){
+                console.log('slope up 3')
+                addPiece(x + 3, 2)
+                return
+              }
+            }
+
+
 
             //slope down check
 
@@ -179,14 +189,18 @@ function AiBoard() {
       // OFFENSE
        
       // ↓ UNCOMMENT FOR RANDOM PIECE PLACEMENT ↓
-      // let random = Math.random() * (7 - 1) + 1
-      // addPiece(Math.floor(random - 1), 2)
-      // return
+      let random = Math.random() * (7 - 1) + 1
+      addPiece(Math.floor(random - 1), 2)
+      return
 
       // ↓ UNCOMMENT FOR CONSISTENT PIECE PLACEMENT ↓
-      console.log('last slot')
-      addPiece(6, 2)
-      return
+      // let last = 6
+      // if(board[0][last] > 0){
+      //   last--
+      // }
+      // console.log('last slot')
+      // addPiece(last, 2)
+      // return
     }
 
   }, [ blackMoves ])
