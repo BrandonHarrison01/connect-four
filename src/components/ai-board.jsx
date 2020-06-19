@@ -103,34 +103,54 @@ function AiBoard() {
   // computer === red === 2
 
   useEffect(() => {
-    for(let y = 5; y >= 0; y--){
-      for(let x = 0; x < 7; x++){
-        let vert = []
-        let hor = []
-        let up = []
-        let down = []
+    if(blackMoves > 0){
+      for(let y = 5; y >= 0; y--){
+        for(let x = 0; x < 7; x++){
+          let current = board[y][x]
+  
+          // connected 3 check
+          if(current > 0){
 
-        const check = ar => {
-          for(let i = 0; i < 3; i++){
-            if(ar[0] !== ar[i]){
-              return false
+            // vertical check
+            if(current === board[y - 1][x] && current === board[y - 2][x] && y > 2){
+              if(!board[y - 3][x]){
+                addPiece(x, 2)
+                return
+              }
+
+            // horizontal check
+            } else if(current === board[y][x + 1] && current === board[y][x + 2] && x < 5){
+              if(!board[y][x + 3]){
+                if(y === 5 || board[y + 1][x + 3] > 0){
+                  addPiece(x + 3, 2)
+                  return
+                }
+              }
+              
             }
           }
-          return true
-        }
 
-        if(board[y][x] && y > 2){
-          vert = [board[y][x], board[y-1][x], board[y-2][x]]
-          if(check(vert)){
-            addPiece(x, 2)
-          } else {
-            addPiece(6, 2)
-          }
+          // no connected 3
+          addPiece(6, 2)
+          return
+  
+          // if(board[y][x] && x < 4){
+          //   hor = [board[y][x], board[y][x+1], board[y][x+2]]
+          //   if(check(hor)){
+          //     if(y = 5 || board[y + 1][x + 3]){
+          //       addPiece(x + 3, 2)
+          //     } else {
+          //       addPiece(6, 2)
+          //     }
+          //   } else {
+          //     addPiece(6, 2)
+          //   }
+          // }
         }
       }
     }
 
-  }, [ blackMoves, board ])
+  }, [ blackMoves ])
 
   const resetBoard = () => {
     setBoard([
