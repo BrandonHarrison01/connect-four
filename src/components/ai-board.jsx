@@ -116,8 +116,8 @@ function AiBoard() {
         for(let x = 0; x < 7; x++){
           let current = board[y][x]
   
-          // connected 3 check
           if(current > 0){
+
 
             // vertical check
             if(y > 2 && current === board[y - 1][x] && current === board[y - 2][x]){
@@ -127,17 +127,9 @@ function AiBoard() {
                 return
               }
 
+
             // horizontal check
             } else if(current === board[y][x + 1] && x < 6){
-
-              // edge case backwards piece add
-              if(x === 4 && current === board[y][6]){
-                if(y === 5 || board[y + 1][x - 1] > 0){
-                  console.log('horizontal backwards')
-                  addPiece(x - 1, 2)
-                  return
-                }
-              }
 
               // if 3 connected pieces and 4th piece is empty
               if(current === board[y][x + 2] && !board[y][x + 3]){
@@ -158,30 +150,73 @@ function AiBoard() {
                 }
               }
 
-              // if 1 and 2 connected pieces and 2nd piece is empty
-              if(current === board[y][x - 2] && !board[y][x - 1]){
+              // if 2 connected pieces and previous piece is empty
+              if(x > 0 && !board[y][x - 1]){
                 if(y === 5 || board[y + 1][x - 1] > 0){
-                  console.log('horizontal 1 and 2')
+                  console.log('horizontal 2')
                   addPiece(x - 1, 2)
                   return
                 }
               }
 
+
             //slope up check
-            } else if(x < 6 && y > 0 && current === board[y - 1][x + 1]){
+            } else if(x < 4 && y > 2 && current === board[y - 1][x + 1]){
 
               // three connected and 4 is empty
-              if(current === board[y - 2][x + 2] && !board[y - 3][x + 3] && board[y - 2][x + 3] > 0){
-                console.log('slope up 3')
-                addPiece(x + 3, 2)
+              if(current === board[y - 2][x + 2]){
+
+                // if bottom of slope is empty
+                if(y < 5 && x < 0 && !board[y - 1][x - 1]){
+                  if(y === 4 || board[y + 2][x - 1] > 0){
+                    console.log('slope down 3 bottom')
+                    addPiece(x - 1, 2)
+                    return
+                  }
+                }
+
+                // if top of slope is empty
+                if(y > 2 && x < 4 && !board[y - 3][x - 3] && board[y - 2][x + 3] > 0){
+                  console.log('slope down 3 top')
+                  addPiece(x + 3, 2)
+                  return
+                }
+              }
+
+              // 2 and 1 slope up 3 is empty
+              if(y > 2 && current === board[y - 3][x + 3] && board[y - 1][x + 2] > 0){
+                console.log('slope up 2 and 1')
+                addPiece(x + 2, 2)
                 return
               }
-            }
-
 
 
             //slope down check
+            } else if(x > 1 && y > 1 && current === board[y - 1][x - 1]) {
 
+              // three connecting pieces
+              if(current === board[y - 2][x - 2]){
+
+                // if bottom of slope is empty
+                if(y < 5 && x < 6 && !board[y + 1][x + 1]){
+                  if(y === 4 || board[y + 2][x + 1] > 0){
+                    console.log('slope down 3 bottom')
+                    addPiece(x + 1, 2)
+                    return
+                  }
+                }
+
+                // if top of slope is empty
+                if(y > 2 && x > 2 && !board[y - 3][x - 3] && board[y - 2][x - 3] > 0){
+                  console.log('slope down 3 top')
+                  addPiece(x - 3, 2)
+                  return
+                }
+              }
+
+              // 2 and 1 connecting pieces
+
+            }
           }
         }
       }
