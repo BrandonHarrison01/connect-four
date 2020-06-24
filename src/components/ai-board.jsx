@@ -121,7 +121,11 @@ function AiBoard() {
             console.log(`checking slots ${y}, ${x}`)
 
             // VERTICAL CHECK
+            // only checks valid spots     checks for 3 pieces of same color
+            //   ↓                            ↓                 ↓
             if(y > 2 && current === board[y - 1][x] && current === board[y - 2][x]){
+              // checks for empty top peice        
+              //      ↓
               if(!board[y - 3][x]){
                 console.log('vertical')
                 addPiece(x, 2)
@@ -131,11 +135,15 @@ function AiBoard() {
             
 
             // HORIZONTAL CHECK
-            if(current === board[y][x + 1] && x < 6){
+            // checks valid spots   checks 2 connecting pieces
+            //   ↓                        ↓
+            if(x < 6 && current === board[y][x + 1]){
 
-              // if 3 connected pieces and 4th piece is empty
+              // if 3 connected pieces       4th piece is empty
+              //          ↓                          ↓
               if(current === board[y][x + 2] && !board[y][x + 3]){
                 // check that piece ends up in horizontal line when added
+                //               ↓
                 if(y === 5 || board[y + 1][x + 3] > 0){
                   console.log('horizontal 3')
                   addPiece(x + 3, 2)
@@ -143,11 +151,26 @@ function AiBoard() {
                 }
               }
 
-              // if 2 and 1 connected pieces and 3rd piece is empty
+              // if 2 and 1 connected pieces   3rd place is empty
+              //         ↓                            ↓
               if(current === board[y][x + 3] && !board[y][x + 2]){
+                // check that piece ends up in horizontal line when added
+                //               ↓
                 if(y === 5 || board[y + 1][x + 2] > 0){
                   console.log('horizontal 2 and 1')
                   addPiece(x + 2, 2)
+                  return
+                }
+              }
+              
+              // checks valid places   if 1 and 2 connected pieces   2nd place is empty
+              //  ↓                         ↓                        ↓
+              if(x > 1 && current === board[y][x - 2] && !board[y][x - 1]){
+                // check that piece ends up in horizontal line when added
+                //               ↓
+                if(y === 5 || board[y + 1][x - 1] > 0){
+                  console.log('horizontal 1 and 2')
+                  addPiece(x - 1, 2)
                   return
                 }
               }
@@ -155,15 +178,21 @@ function AiBoard() {
             
 
             // SLOPE UP CHECK
+            //  valid area        2 connecting pieces
+            //     ↓                      ↓
             if(x < 6 && y > 0 && current === board[y - 1][x + 1]){
 
-              console.log(`checking slots ${y}, ${x} for connected slope up`)
+              // three connecting
+              //  valid area                      three connected
+              //      ↓                                ↓
+              if(y > 1 && x < 5 && current === board[y - 2][x + 2]){
 
-              // three connected and 4 is empty
-              if(current === board[y - 2][x + 2]){
-
-                // if bottom of slope is empty
-                if(y < 5 && x < 0 && !board[y + 1][x - 1]){
+                // bottom empty
+                //   valid area        bottom of slope is empty
+                //       ↓                    ↓
+                if(y < 5 && x > 0 && !board[y + 1][x - 1]){
+                  //   piece will stop where needed
+                  //               ↓
                   if(y === 4 || board[y + 2][x - 1] > 0){
                     console.log('slope up 3 bottom')
                     addPiece(x - 1, 2)
@@ -171,19 +200,40 @@ function AiBoard() {
                   }
                 }
 
-                // if top of slope is empty
-                if(y > 2 && x < 4 && !board[y - 3][x + 3] && board[y - 2][x + 3] > 0){
-                  console.log('slope up 3 top')
-                  addPiece(x + 3, 2)
+                // top empty
+                // valid area
+                //     ↓
+                if(y > 2 && x < 4){
+                  // place is empty          stops where needed
+                  //      ↓                        ↓
+                  if(!board[y - 3][x + 3] && board[y - 2][x + 3] > 0){
+                    console.log('slope up 3 top')
+                    addPiece(x + 3, 2)
+                    return
+                  }
+                }
+              }
+
+              // 2 and 1 connected 3 is empty
+              //    valid area         4th piece matches
+              //       ↓                     ↓
+              if(y > 2 && x < 4 && current === board[y - 3][x + 3]){
+                // place is empty          stops where needed
+                //     ↓                         ↓
+                if(!board[y - 2][x + 2] && board[y - 1][x + 2] > 0){
+                  console.log('slope up 2 and 1')
+                  addPiece(x + 2, 2)
                   return
                 }
               }
 
-              // 2 and 1 slope up 3 is empty - WORKS
-              if(y > 1 && x < 5 && current === board[y - 3][x + 3] && board[y - 1][x + 2] > 0 && !board[y - 2][x + 2]){
-                console.log('slope up 2 and 1')
-                addPiece(x + 2, 2)
-                return
+              // 1 and 2 connected 2nd is empty
+              if(y < 4 && x > 1 && current === board[y + 2][x - 2]){
+                if(!board[y + 1][x - 1] && board[y + 2][x - 1] > 0){
+                  console.log('slope up 1 and 2')
+                  addPiece(x - 1, 2)
+                  return
+                }
               }
             } 
             
@@ -194,7 +244,7 @@ function AiBoard() {
               // three connecting pieces
               if(current === board[y - 2][x - 2]){
 
-                // if bottom of slope is empty - WORKS
+                // if bottom of slope is empty
                 if(y < 5 && x < 6 && !board[y + 1][x + 1]){
                   if(y === 4 || board[y + 2][x + 1] > 0){
                     console.log('slope down 3 bottom')
@@ -203,7 +253,7 @@ function AiBoard() {
                   }
                 }
 
-                // if top of slope is empty - WORKS
+                // if top of slope is empty
                 if(y > 2 && x > 2 && !board[y - 3][x - 3] && board[y - 2][x - 3] > 0){
                   console.log('slope down 3 top')
                   addPiece(x - 3, 2)
