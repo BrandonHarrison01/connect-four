@@ -120,18 +120,17 @@ function AiBoard() {
 
             console.log(`checking slots ${y}, ${x}`)
 
-            // vertical check
+            // VERTICAL CHECK
             if(y > 2 && current === board[y - 1][x] && current === board[y - 2][x]){
               if(!board[y - 3][x]){
                 console.log('vertical')
                 addPiece(x, 2)
                 return
               }
-
-
-            // horizontal check
             }
             
+
+            // HORIZONTAL CHECK
             if(current === board[y][x + 1] && x < 6){
 
               // if 3 connected pieces and 4th piece is empty
@@ -152,20 +151,10 @@ function AiBoard() {
                   return
                 }
               }
-
-              // if 2 connected pieces and previous piece is empty
-              if(x > 0 && !board[y][x - 1]){
-                if(y === 5 || board[y + 1][x - 1] > 0){
-                  console.log('horizontal 2')
-                  addPiece(x - 1, 2)
-                  return
-                }
-              }
-
-
-            //slope up check
             } 
             
+
+            // SLOPE UP CHECK
             if(x < 6 && y > 0 && current === board[y - 1][x + 1]){
 
               console.log(`checking slots ${y}, ${x} for connected slope up`)
@@ -196,11 +185,10 @@ function AiBoard() {
                 addPiece(x + 2, 2)
                 return
               }
-
-
-            //slope down check
             } 
             
+
+            // SLOPE DOWN CHECK
             if(x > 1 && y > 1 && current === board[y - 1][x - 1]) {
 
               // three connecting pieces
@@ -225,6 +213,18 @@ function AiBoard() {
 
               // 2 and 1 connecting pieces
 
+            }
+
+
+            // LOW PRIORITY DEFENSIVE MOVES
+
+            // if 2 connected pieces and previous piece is empty HORIZONTAL
+            if(x > 0 && current === board[y][x + 1] && x < 6 && !board[y][x - 1]){
+              if(y === 5 || board[y + 1][x - 1] > 0){
+                console.log('horizontal 2')
+                addPiece(x - 1, 2)
+                return
+              }
             }
           }
         }
