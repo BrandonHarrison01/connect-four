@@ -228,7 +228,11 @@ function AiBoard() {
               }
 
               // 1 and 2 connected 2nd is empty
+              //    valid area             single piece match
+              //       ↓                          ↓
               if(y < 4 && x > 1 && current === board[y + 2][x - 2]){
+                //   place is empty           stops where needed
+                //        ↓                         ↓
                 if(!board[y + 1][x - 1] && board[y + 2][x - 1] > 0){
                   console.log('slope up 1 and 2')
                   addPiece(x - 1, 2)
@@ -239,13 +243,17 @@ function AiBoard() {
             
 
             // SLOPE DOWN CHECK
-            if(x > 1 && y > 1 && current === board[y - 1][x - 1]) {
+            if(x > 0 && y > 0 && current === board[y - 1][x - 1]) {
 
               // three connecting pieces
-              if(current === board[y - 2][x - 2]){
+              if(x > 1 && y > 1 && current === board[y - 2][x - 2]){
 
-                // if bottom of slope is empty
+                // bottom empty
+                // valid area        bottom of slope is empty
+                //    ↓                      ↓
                 if(y < 5 && x < 6 && !board[y + 1][x + 1]){
+                  // stops where needed
+                  //   ↓            ↓
                   if(y === 4 || board[y + 2][x + 1] > 0){
                     console.log('slope down 3 bottom')
                     addPiece(x + 1, 2)
@@ -253,21 +261,51 @@ function AiBoard() {
                   }
                 }
 
-                // if top of slope is empty
-                if(y > 2 && x > 2 && !board[y - 3][x - 3] && board[y - 2][x - 3] > 0){
-                  console.log('slope down 3 top')
-                  addPiece(x - 3, 2)
-                  return
+                // top empty
+                // valid area        top of slope is empty
+                //      ↓                    ↓
+                if(y > 2 && x > 2 && !board[y - 3][x - 3]){
+                  // stops where needed
+                  //         ↓
+                  if(board[y - 2][x - 3] > 0){
+                    console.log('slope down 3 top')
+                    addPiece(x - 3, 2)
+                    return
+                  }
                 }
               }
 
               // 2 and 1 connecting pieces
+              //   valid area          single piece match
+              //      ↓                        ↓
+              if(y < 4 && x < 4 && current === board[y + 2][x + 2]){
+                //  empty space             piece stops at right place
+                //      ↓                              ↓
+                if(!board[y + 1][x + 1] && board[y + 2][x + 1] > 0){
+                  console.log('slope down 2 and 1')
+                  addPiece(x + 1, 2)
+                  return
+                }
+              }
 
+              // 1 and 2 connecting pieces
+              //   valid area          single piece match
+              //      ↓                        ↓
+              if(y > 2 && x > 2 && current === board[y - 3][x - 3]){
+                //  empty space             piece stops at right place
+                //      ↓                              ↓
+                if(!board[y - 2][x - 2] && board[y - 1][x - 2] > 0){
+                  console.log('slope down 1 and 2')
+                  addPiece(x - 2, 2)
+                  return
+                }
+              }
             }
 
 
             // LOW PRIORITY DEFENSIVE MOVES
 
+            // maybe run after every piece is checked????
             // if 2 connected pieces and previous piece is empty HORIZONTAL
             if(x > 0 && current === board[y][x + 1] && x < 6 && !board[y][x - 1]){
               if(y === 5 || board[y + 1][x - 1] > 0){
@@ -283,18 +321,18 @@ function AiBoard() {
       // OFFENSE
        
       // ↓ UNCOMMENT FOR RANDOM PIECE PLACEMENT ↓
-      // let random = Math.random() * (7 - 1) + 1
-      // addPiece(Math.floor(random - 1), 2)
-      // return
+      let random = Math.random() * (7 - 1) + 1
+      addPiece(Math.floor(random - 1), 2)
+      return
 
       // ↓ UNCOMMENT FOR CONSISTENT PIECE PLACEMENT ↓
-      let last = 6
-      if(board[0][last] > 0){
-        last--
-      }
-      console.log('last slot')
-      addPiece(last, 2)
-      return
+      // let last = 6
+      // if(board[0][last] > 0){
+      //   last--
+      // }
+      // console.log('last slot')
+      // addPiece(last, 2)
+      // return
     }
 
   }, [ blackMoves ])
