@@ -1,102 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
 import PlayerWon from './player-won'
-import { useCallback } from "react";
 
-function AiBoard() {
-  let [board, setBoard] = useState([
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-  ]);
-  let [player, setPlayer] = useState(1);
-  let [playerWon, setPlayerWon] = useState(false)
-  let [blackMoves, setBlackMoves] = useState(0)
-  let [redWins, setRedWins] = useState(0)
-  let [blackWins, setBlackWins] = useState(0)
-
-
-  useEffect(() => {
-    // check for 4 connecting pieces
-    // runs after every turn
-
-    for(let y = 5; y >= 0; y--){
-      for(let x = 0; x < 7; x++){
-        let slopeDown = []
-        let vertical = []
-        let slopeUp = []
-        let horizontal = []
-
-        const winCheck = ar => {
-          for(let i = 1; i < 4; i++){
-              if(ar[0] !== ar[i]){
-                  return
-              }
-          }
-          setPlayerWon(ar[0])
-          console.log(playerWon, 'player won')
-          setBlackMoves(0)
-          return
-      }
-
-        if(board[y][x] && y > 2 && x > 2){
-          slopeDown = [board[y][x], board[y-1][x-1], board[y-2][x-2], board[y-3][x-3]]
-          winCheck(slopeDown)
-        }
-        
-        if(board[y][x] && y > 2){
-          vertical = [board[y][x], board[y-1][x], board[y-2][x], board[y-3][x]]
-          winCheck(vertical)
-        }
-        
-        if(board[y][x] && y > 2 && x < 4){
-          slopeUp = [board[y][x], board[y-1][x+1], board[y-2][x+2], board[y-3][x+3]]
-          winCheck(slopeUp)
-        }
-        
-        if(board[y][x] && x < 4){
-          horizontal = [board[y][x], board[y][x+1], board[y][x+2], board[y][x+3]]
-          winCheck(horizontal)
-        }
-      }
-    }
-
-    playerWon === 1 && setBlackWins(prev => prev + 1)
-    playerWon === 2 && setRedWins(prev => prev + 1)
-
-  }, [ player, board, playerWon ])
-
-
-  const addPiece = (y, p) => {
-    for (let x = 5; x >= 0; x--) {
-      if (board[x][y] === 0) {
-        
-        //how to put a piece on board using hooks?.. need persistance after rerender
-        
-        setBoard(b => {
-          b[x] = b[x].map((item, j) => {
-            if(j === y){
-              return item + p
-            } else {
-              return item
-            }
-          })
-          return b
-        })
-
-        break;
-      }
-    }
-
-    player === 1 && setBlackMoves(prev => prev + 1)
-    player === 1 ? setPlayer(2) : setPlayer(1);
-    return;
-  };
-
-
+function AiBoard(props) {
   // ai runs after every player move
   // cheks for 3 connecting pieces if none builds on most connected ai
   // player === black === 1
@@ -107,14 +13,14 @@ function AiBoard() {
   // since size of board is not dynamic o(n * 2) ! o(n^2)??
 
   useEffect(() => {
-    if(blackMoves > 0){
+    if(props.blackMoves > 0){
 
       // DEFENSE
 
       // iterating through every space on the board
       for(let y = 5; y >= 0; y--){
         for(let x = 0; x < 7; x++){
-          let current = board[y][x]
+          let current = props.board[y][x]
   
           if(current > 0){
 
@@ -123,12 +29,12 @@ function AiBoard() {
             // VERTICAL CHECK
             // only checks valid spots     checks for 3 pieces of same color
             //   ↓                            ↓                 ↓
-            if(y > 2 && current === board[y - 1][x] && current === board[y - 2][x]){
+            if(y > 2 && current === props.board[y - 1][x] && current === props.board[y - 2][x]){
               // checks for empty top peice        
               //      ↓
-              if(!board[y - 3][x]){
+              if(!props.board[y - 3][x]){
                 console.log('vertical')
-                addPiece(x, 2)
+                props.addPiece(x, 2)
                 return
               }
             }
@@ -137,40 +43,40 @@ function AiBoard() {
             // HORIZONTAL CHECK
             // checks valid spots   checks 2 connecting pieces
             //   ↓                        ↓
-            if(x < 6 && current === board[y][x + 1]){
+            if(x < 6 && current === props.board[y][x + 1]){
 
               // if 3 connected pieces       4th piece is empty
               //          ↓                          ↓
-              if(current === board[y][x + 2] && !board[y][x + 3]){
+              if(current === props.board[y][x + 2] && !props.board[y][x + 3]){
                 // check that piece ends up in horizontal line when added
                 //               ↓
-                if(y === 5 || board[y + 1][x + 3] > 0){
+                if(y === 5 || props.board[y + 1][x + 3] > 0){
                   console.log('horizontal 3')
-                  addPiece(x + 3, 2)
+                  props.addPiece(x + 3, 2)
                   return
                 }
               }
 
               // if 2 and 1 connected pieces   3rd place is empty
               //         ↓                            ↓
-              if(current === board[y][x + 3] && !board[y][x + 2]){
+              if(current === props.board[y][x + 3] && !props.board[y][x + 2]){
                 // check that piece ends up in horizontal line when added
                 //               ↓
-                if(y === 5 || board[y + 1][x + 2] > 0){
+                if(y === 5 || props.board[y + 1][x + 2] > 0){
                   console.log('horizontal 2 and 1')
-                  addPiece(x + 2, 2)
+                  props.addPiece(x + 2, 2)
                   return
                 }
               }
               
               // checks valid places   if 1 and 2 connected pieces   2nd place is empty
               //  ↓                         ↓                        ↓
-              if(x > 1 && current === board[y][x - 2] && !board[y][x - 1]){
+              if(x > 1 && current === props.board[y][x - 2] && !props.board[y][x - 1]){
                 // check that piece ends up in horizontal line when added
                 //               ↓
-                if(y === 5 || board[y + 1][x - 1] > 0){
+                if(y === 5 || props.board[y + 1][x - 1] > 0){
                   console.log('horizontal 1 and 2')
-                  addPiece(x - 1, 2)
+                  props.addPiece(x - 1, 2)
                   return
                 }
               }
@@ -180,22 +86,22 @@ function AiBoard() {
             // SLOPE UP CHECK
             //  valid area        2 connecting pieces
             //     ↓                      ↓
-            if(x < 6 && y > 0 && current === board[y - 1][x + 1]){
+            if(x < 6 && y > 0 && current === props.board[y - 1][x + 1]){
 
               // three connecting
               //  valid area                      three connected
               //      ↓                                ↓
-              if(y > 1 && x < 5 && current === board[y - 2][x + 2]){
+              if(y > 1 && x < 5 && current === props.board[y - 2][x + 2]){
 
                 // bottom empty
                 //   valid area        bottom of slope is empty
                 //       ↓                    ↓
-                if(y < 5 && x > 0 && !board[y + 1][x - 1]){
+                if(y < 5 && x > 0 && !props.board[y + 1][x - 1]){
                   //   piece will stop where needed
                   //               ↓
-                  if(y === 4 || board[y + 2][x - 1] > 0){
+                  if(y === 4 || props.board[y + 2][x - 1] > 0){
                     console.log('slope up 3 bottom')
-                    addPiece(x - 1, 2)
+                    props.addPiece(x - 1, 2)
                     return
                   }
                 }
@@ -206,9 +112,9 @@ function AiBoard() {
                 if(y > 2 && x < 4){
                   // place is empty          stops where needed
                   //      ↓                        ↓
-                  if(!board[y - 3][x + 3] && board[y - 2][x + 3] > 0){
+                  if(!props.board[y - 3][x + 3] && props.board[y - 2][x + 3] > 0){
                     console.log('slope up 3 top')
-                    addPiece(x + 3, 2)
+                    props.addPiece(x + 3, 2)
                     return
                   }
                 }
@@ -217,12 +123,12 @@ function AiBoard() {
               // 2 and 1 connected 3 is empty
               //    valid area         4th piece matches
               //       ↓                     ↓
-              if(y > 2 && x < 4 && current === board[y - 3][x + 3]){
+              if(y > 2 && x < 4 && current === props.board[y - 3][x + 3]){
                 // place is empty          stops where needed
                 //     ↓                         ↓
-                if(!board[y - 2][x + 2] && board[y - 1][x + 2] > 0){
+                if(!props.board[y - 2][x + 2] && props.board[y - 1][x + 2] > 0){
                   console.log('slope up 2 and 1')
-                  addPiece(x + 2, 2)
+                  props.addPiece(x + 2, 2)
                   return
                 }
               }
@@ -230,12 +136,12 @@ function AiBoard() {
               // 1 and 2 connected 2nd is empty
               //    valid area             single piece match
               //       ↓                          ↓
-              if(y < 4 && x > 1 && current === board[y + 2][x - 2]){
+              if(y < 4 && x > 1 && current === props.board[y + 2][x - 2]){
                 //   place is empty           stops where needed
                 //        ↓                         ↓
-                if(!board[y + 1][x - 1] && board[y + 2][x - 1] > 0){
+                if(!props.board[y + 1][x - 1] && props.board[y + 2][x - 1] > 0){
                   console.log('slope up 1 and 2')
-                  addPiece(x - 1, 2)
+                  props.addPiece(x - 1, 2)
                   return
                 }
               }
@@ -243,20 +149,20 @@ function AiBoard() {
             
 
             // SLOPE DOWN CHECK
-            if(x > 0 && y > 0 && current === board[y - 1][x - 1]) {
+            if(x > 0 && y > 0 && current === props.board[y - 1][x - 1]) {
 
               // three connecting pieces
-              if(x > 1 && y > 1 && current === board[y - 2][x - 2]){
+              if(x > 1 && y > 1 && current === props.board[y - 2][x - 2]){
 
                 // bottom empty
                 // valid area        bottom of slope is empty
                 //    ↓                      ↓
-                if(y < 5 && x < 6 && !board[y + 1][x + 1]){
+                if(y < 5 && x < 6 && !props.board[y + 1][x + 1]){
                   // stops where needed
                   //   ↓            ↓
-                  if(y === 4 || board[y + 2][x + 1] > 0){
+                  if(y === 4 || props.board[y + 2][x + 1] > 0){
                     console.log('slope down 3 bottom')
-                    addPiece(x + 1, 2)
+                    props.addPiece(x + 1, 2)
                     return
                   }
                 }
@@ -264,12 +170,12 @@ function AiBoard() {
                 // top empty
                 // valid area        top of slope is empty
                 //      ↓                    ↓
-                if(y > 2 && x > 2 && !board[y - 3][x - 3]){
+                if(y > 2 && x > 2 && !props.board[y - 3][x - 3]){
                   // stops where needed
                   //         ↓
-                  if(board[y - 2][x - 3] > 0){
+                  if(props.board[y - 2][x - 3] > 0){
                     console.log('slope down 3 top')
-                    addPiece(x - 3, 2)
+                    props.addPiece(x - 3, 2)
                     return
                   }
                 }
@@ -278,12 +184,12 @@ function AiBoard() {
               // 2 and 1 connecting pieces
               //   valid area          single piece match
               //      ↓                        ↓
-              if(y < 4 && x < 4 && current === board[y + 2][x + 2]){
+              if(y < 4 && x < 4 && current === props.board[y + 2][x + 2]){
                 //  empty space             piece stops at right place
                 //      ↓                              ↓
-                if(!board[y + 1][x + 1] && board[y + 2][x + 1] > 0){
+                if(!props.board[y + 1][x + 1] && props.board[y + 2][x + 1] > 0){
                   console.log('slope down 2 and 1')
-                  addPiece(x + 1, 2)
+                  props.addPiece(x + 1, 2)
                   return
                 }
               }
@@ -291,12 +197,12 @@ function AiBoard() {
               // 1 and 2 connecting pieces
               //   valid area          single piece match
               //      ↓                        ↓
-              if(y > 2 && x > 2 && current === board[y - 3][x - 3]){
+              if(y > 2 && x > 2 && current === props.board[y - 3][x - 3]){
                 //  empty space             piece stops at right place
                 //      ↓                              ↓
-                if(!board[y - 2][x - 2] && board[y - 1][x - 2] > 0){
+                if(!props.board[y - 2][x - 2] && props.board[y - 1][x - 2] > 0){
                   console.log('slope down 1 and 2')
-                  addPiece(x - 2, 2)
+                  props.addPiece(x - 2, 2)
                   return
                 }
               }
@@ -307,10 +213,10 @@ function AiBoard() {
 
             // maybe run after every piece is checked????
             // if 2 connected pieces and previous piece is empty HORIZONTAL
-            if(x > 0 && current === board[y][x + 1] && x < 6 && !board[y][x - 1]){
-              if(y === 5 || board[y + 1][x - 1] > 0){
+            if(x > 0 && current === props.board[y][x + 1] && x < 6 && !props.board[y][x - 1]){
+              if(y === 5 || props.board[y + 1][x - 1] > 0){
                 console.log('horizontal 2')
-                addPiece(x - 1, 2)
+                props.addPiece(x - 1, 2)
                 return
               }
             }
@@ -322,65 +228,48 @@ function AiBoard() {
        
       // ↓ UNCOMMENT FOR RANDOM PIECE PLACEMENT ↓
       let random = Math.random() * (7 - 1) + 1
-      addPiece(Math.floor(random - 1), 2)
+      props.addPiece(Math.floor(random - 1), 2)
       return
 
       // ↓ UNCOMMENT FOR CONSISTENT PIECE PLACEMENT ↓
       // let last = 6
-      // if(board[0][last] > 0){
+      // if(props.board[0][last] > 0){
       //   last--
       // }
       // console.log('last slot')
-      // addPiece(last, 2)
+      // props.addPiece(last, 2)
       // return
     }
 
-  }, [ blackMoves ])
-
-  const resetBoard = () => {
-    setBoard([
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-    ])
-    setPlayerWon(false)
-  }
-
-  const resetWins = () => {
-    setRedWins(0)
-    setBlackWins(0)
-  }
+  }, [ props.blackMoves ])
 
   return (
     <div className='board'>
       <div className='score-board'>
-        <p>Human: {blackWins}</p>
-        <p>AI: {redWins}</p>
-        <button onClick={resetWins}>Clear</button>
+        <p>Human: {props.blackWins}</p>
+        <p>AI: {props.redWins}</p>
+        <button onClick={props.resetWins}>Clear</button>
       </div>
       <div className='game-controls'>
-        {board[0].map((val, index) => (
+        {props.board[0].map((val, index) => (
           <p
             key={index}
-            className={player === 1 ? 'display-hidden one' : 'display-hidden two'}
-            onClick={() => addPiece(index, player)}
+            className={props.player === 1 ? 'display-hidden one' : 'display-hidden two'}
+            onClick={() => props.addPiece(index, props.player)}
           />
         ))}
       </div>
       <div className='game'>
-        {board.map((row, index) => (
+        {props.board.map((row, index) => (
           <div key={index} className='row'>
-            {board[index].map((piece, i) => (
+            {props.board[index].map((piece, i) => (
               <p key={i} className={piece === 0 ? "empty" : piece === 1 ? "p1" : "p2"} />
             ))}
           </div>
         ))}
       </div>
       <Link to='/'>Menu</Link>
-      {playerWon > 0 && <PlayerWon playerWon={playerWon} resetBoard={resetBoard} />}
+      {props.playerWon > 0 && <PlayerWon playerWon={props.playerWon} resetBoard={props.resetBoard} />}
     </div>
   );
 }
