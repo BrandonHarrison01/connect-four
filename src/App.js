@@ -131,9 +131,9 @@ function App(props) {
       }
     }
 
+    boardScan();
     player === 1 && setBlackMoves((prev) => prev + 1);
     player === 1 ? setPlayer(2) : setPlayer(1);
-    boardScan();
     return;
   };
 
