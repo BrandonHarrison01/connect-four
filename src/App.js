@@ -24,6 +24,8 @@ function App(props) {
     // check for 4 connecting pieces
     // runs after every turn
 
+    console.log('running board scan')
+
     for (let y = 5; y >= 0; y--) {
       for (let x = 0; x < 7; x++) {
         let slopeDown = [];
@@ -87,6 +89,9 @@ function App(props) {
 
     playerWon === 1 && setBlackWins((prev) => prev + 1);
     playerWon === 2 && setRedWins((prev) => prev + 1);
+    console.log(redWins, 'red')
+    console.log(blackWins, 'black')
+    return
   };
 
   const resetBoard = () => {
