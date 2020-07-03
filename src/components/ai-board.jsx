@@ -6,6 +6,10 @@ import aiPlayer from '../AiPlayer'
 import PlayerWon from './player-won'
 
 function AiBoard(props) {
+  const [moveCounter, setMoveCounter] = useState(0)
+
+  console.log('rerender')
+
   return (
     <div className='board'>
       <div className='score-board'>
@@ -18,7 +22,12 @@ function AiBoard(props) {
           <p
             key={index}
             className={props.player === 1 ? 'display-hidden one' : 'display-hidden two'}
-            onClick={() => props.addPiece(index, props.player)}
+            onClick={() => {
+              props.addPiece(index, props.player)
+              aiPlayer(props.board, props.addPiece)
+              setMoveCounter(moveCounter + 1)
+              // console.log(test, 'test')
+            }}
           />
         ))}
       </div>
