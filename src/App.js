@@ -34,11 +34,13 @@ function App(props) {
         let horizontal = [];
 
         const winCheck = (ar) => {
+          console.log(`checking array ${ar}`)
           for (let i = 1; i < 4; i++) {
             if (ar[0] !== ar[i]) {
               return;
             }
           }
+
           setPlayerWon(ar[0]);
           console.log(playerWon, "player won");
           setBlackMoves(0);
@@ -111,19 +113,22 @@ function App(props) {
     setBlackWins(0);
   };
 
-  const addPiece = (y, p) => {
-    for (let x = 5; x >= 0; x--) {
-      if (board[x][y] === 0) {
+  const addPiece = (xAdd, player) => {
+    for (let y = 5; y >= 0; y--) {
+      if (board[y][xAdd] === 0) {
         //how to put a piece on board using hooks?.. need persistance after rerender
 
         setBoard((b) => {
-          b[x] = b[x].map((item, j) => {
-            if (j === y) {
-              return item + p;
+          b[y] = b[y].map((place, index) => {
+            if (index === xAdd) {
+              console.log('piece added')
+              return place + player;
             } else {
-              return item;
+              return place;
             }
           });
+          console.log('calling board scan')
+          boardScan();
           return b;
         });
 
@@ -131,7 +136,6 @@ function App(props) {
       }
     }
 
-    boardScan();
     player === 1 && setBlackMoves((prev) => prev + 1);
     player === 1 ? setPlayer(2) : setPlayer(1);
     return;
