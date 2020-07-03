@@ -16,9 +16,8 @@ function App(props) {
   ]);
   let [player, setPlayer] = useState(1);
   let [playerWon, setPlayerWon] = useState(false);
-  let [blackMoves, setBlackMoves] = useState(0);
-  let [redWins, setRedWins] = useState(0);
-  let [blackWins, setBlackWins] = useState(0);
+  // let [blackMoves, setBlackMoves] = useState(0);
+  let [score, setScore] = useState([0, 0]);
 
   const boardScan = () => {
     // check for 4 connecting pieces
@@ -34,7 +33,7 @@ function App(props) {
         let horizontal = [];
 
         const winCheck = (ar) => {
-          console.log(`checking array ${ar}`)
+          // console.log(`checking array ${ar}`)
           for (let i = 1; i < 4; i++) {
             if (ar[0] !== ar[i]) {
               return;
@@ -42,8 +41,13 @@ function App(props) {
           }
 
           setPlayerWon(ar[0]);
-          console.log(playerWon, "player won");
-          setBlackMoves(0);
+          ar[0] === 1 ? setScore(prevScore => {
+            prevScore[0]++
+            return prevScore
+          }) : setScore(prevScore => {
+            prevScore[1]++
+            return prevScore
+          })
           return;
         };
 
@@ -89,10 +93,8 @@ function App(props) {
       }
     }
 
-    playerWon === 1 && setBlackWins((prev) => prev + 1);
-    playerWon === 2 && setRedWins((prev) => prev + 1);
-    console.log(redWins, 'red')
-    console.log(blackWins, 'black')
+    // playerWon === 1 && setBlackWins((prev) => prev + 1);
+    // playerWon === 2 && setRedWins((prev) => prev + 1);
     return
   };
 
@@ -109,8 +111,7 @@ function App(props) {
   };
 
   const resetWins = () => {
-    setRedWins(0);
-    setBlackWins(0);
+    setScore([0, 0])
   };
 
   const addPiece = (xAdd, player) => {
@@ -121,13 +122,13 @@ function App(props) {
         setBoard((b) => {
           b[y] = b[y].map((place, index) => {
             if (index === xAdd) {
-              console.log('piece added')
+              // console.log('piece added')
               return place + player;
             } else {
               return place;
             }
           });
-          console.log('calling board scan')
+          // console.log('calling board scan')
           boardScan();
           return b;
         });
@@ -136,7 +137,7 @@ function App(props) {
       }
     }
 
-    player === 1 && setBlackMoves((prev) => prev + 1);
+    // player === 1 && setBlackMoves((prev) => prev + 1);
     player === 1 ? setPlayer(2) : setPlayer(1);
     return;
   };
@@ -153,14 +154,13 @@ function App(props) {
       <Route path='/local-ai'>
         <AiBoard
           addPiece={addPiece}
-          board={board}
-          player={player}
           resetBoard={resetBoard}
           resetWins={resetWins}
+          board={board}
+          player={player}
           playerWon={playerWon}
-          blackMoves={blackMoves}
-          redWins={redWins}
-          blackWins={blackWins}
+          // blackMoves={blackMoves}
+          score={score}
         />
       </Route>
     </div>

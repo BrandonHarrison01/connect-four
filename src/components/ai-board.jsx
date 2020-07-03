@@ -9,8 +9,8 @@ function AiBoard(props) {
   return (
     <div className='board'>
       <div className='score-board'>
-        <p>Human: {props.blackWins}</p>
-        <p>AI: {props.redWins}</p>
+        <p>Human: {props.score[0]}</p>
+        <p>AI: {props.score[1]}</p>
         <button onClick={props.resetWins}>Clear</button>
       </div>
       <div className='game-controls'>
