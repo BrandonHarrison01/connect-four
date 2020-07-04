@@ -16,7 +16,7 @@ function App(props) {
   ]);
   let [player, setPlayer] = useState(1);
   let [playerWon, setPlayerWon] = useState(false);
-  // let [blackMoves, setBlackMoves] = useState(0);
+  let [invalidColumn, setInvalidColumn] = useState(false);
   let [score, setScore] = useState([0, 0]);
 
   const boardScan = () => {
@@ -115,6 +115,14 @@ function App(props) {
   };
 
   const addPiece = (xAdd, player) => {
+    if(board[0][xAdd] > 0){
+      // not setting invalid to true
+      // seems to check board one move behind
+      setInvalidColumn(true)
+      console.log(`invalid column ${invalidColumn}`)
+      return
+    }
+
     for (let y = 5; y >= 0; y--) {
       if (board[y][xAdd] === 0) {
         //how to put a piece on board using hooks?.. need persistance after rerender
@@ -138,6 +146,7 @@ function App(props) {
     }
 
     // player === 1 && setBlackMoves((prev) => prev + 1);
+    setInvalidColumn(false)
     player === 1 ? setPlayer(2) : setPlayer(1);
     return;
   };
@@ -159,10 +168,11 @@ function App(props) {
           board={board}
           player={player}
           playerWon={playerWon}
-          // blackMoves={blackMoves}
+          // invalidColumn={invalidColumn}
           score={score}
         />
       </Route>
+      {invalidColumn  && <p>Can't add piece there</p>}
     </div>
   );
 }

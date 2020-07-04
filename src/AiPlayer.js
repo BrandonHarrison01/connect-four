@@ -9,7 +9,7 @@ export default function aiPlayer(board, addPiece) {
       let current = board[y][x];
 
       if (current > 0) {
-        console.log(`checking slots ${y}, ${x}`);
+        // console.log(`checking slots ${y}, ${x}`);
 
         // VERTICAL CHECK
         // only checks valid spots     checks for 3 pieces of same color
@@ -207,8 +207,18 @@ export default function aiPlayer(board, addPiece) {
   // OFFENSE
 
   // ↓ UNCOMMENT FOR RANDOM PIECE PLACEMENT ↓
-  let random = Math.random() * (7 - 1) + 1;
-  addPiece(Math.floor(random - 1), 2);
+  let random = Math.floor((Math.random() * 7 + 1) - 1)
+  let newInt = true
+  while(newInt){
+      if(board[0][random] > 0){
+          console.log(`${random} column full choosing new number`)
+          random = Math.floor((Math.random() * 7 + 1) - 1)
+      } else {
+          console.log(`${random} column empty adding new piece`)
+          newInt = false
+      }
+  }
+  addPiece(random, 2);
   return;
 
   // create array of no adds | columns that are full or and add would result in a loss

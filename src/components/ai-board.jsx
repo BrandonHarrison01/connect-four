@@ -41,6 +41,7 @@ function AiBoard(props) {
         ))}
       </div>
       <Link to='/'>Menu</Link>
+      {props.invalidColumn && <p>Can't add piece there</p>}
       {props.playerWon > 0 && <PlayerWon playerWon={props.playerWon} resetBoard={props.resetBoard} />}
     </div>
   );
