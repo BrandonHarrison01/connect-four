@@ -207,30 +207,30 @@ export default function aiPlayer(board, addPiece) {
   // OFFENSE
 
   // ↓ UNCOMMENT FOR RANDOM PIECE PLACEMENT ↓
-  let random = Math.floor((Math.random() * 7 + 1) - 1)
-  let newInt = true
-  while(newInt){
-      if(board[0][random] > 0){
-          console.log(`${random} column full choosing new number`)
-          random = Math.floor((Math.random() * 7 + 1) - 1)
-      } else {
-          console.log(`${random} column empty adding new piece`)
-          newInt = false
-      }
-  }
-  addPiece(random, 2);
-  return;
+  // let random = Math.floor((Math.random() * 7 + 1) - 1)
+  // let newInt = true
+  // while(newInt){
+  //     if(board[0][random] > 0){
+  //         console.log(`${random} column full choosing new number`)
+  //         random = Math.floor((Math.random() * 7 + 1) - 1)
+  //     } else {
+  //         console.log(`${random} column empty adding new piece`)
+  //         newInt = false
+  //     }
+  // }
+  // addPiece(random, 2);
+  // return;
 
   // create array of no adds | columns that are full or and add would result in a loss
   // get random and iterate through array if matches get random again
 
   // ↓ UNCOMMENT FOR CONSISTENT PIECE PLACEMENT ↓
-  // let last = 6
-  // if(board[0][last] > 0){
-  //   last--
-  // }
-  // console.log('last slot')
-  // addPiece(last, 2)
-  // return
+  let last = 6
+  if(board[0][last] > 0){
+    last--
+  }
+  console.log('last slot')
+  addPiece(last, 2)
+  return
   // }
 }
