@@ -49,7 +49,7 @@ function App(props) {
             prevScore[1]++
             return prevScore
           })
-          return;
+          return true;
         };
 
         if (board[y][x] && y > 2 && x > 2) {
@@ -59,7 +59,9 @@ function App(props) {
             board[y - 2][x - 2],
             board[y - 3][x - 3],
           ];
-          winCheck(slopeDown);
+          if(winCheck(slopeDown)){
+            return true
+          };
         }
 
         if (board[y][x] && y > 2) {
@@ -69,7 +71,9 @@ function App(props) {
             board[y - 2][x],
             board[y - 3][x],
           ];
-          winCheck(vertical);
+          if(winCheck(vertical)){
+            return true
+          };
         }
 
         if (board[y][x] && y > 2 && x < 4) {
@@ -96,7 +100,7 @@ function App(props) {
 
     // playerWon === 1 && setBlackWins((prev) => prev + 1);
     // playerWon === 2 && setRedWins((prev) => prev + 1);
-    return
+    return false
   };
 
   const resetBoard = () => {
@@ -124,8 +128,6 @@ function App(props) {
       return
     }
 
-    if(playerWon === 0){
-
       for (let y = 5; y >= 0; y--) {
         if (board[y][xAdd] === 0) {
           //how to put a piece on board using hooks?.. need persistance after rerender
@@ -149,10 +151,10 @@ function App(props) {
       
       // player === 1 && setBlackMoves((prev) => prev + 1);
       setInvalidColumn(false)
-      boardScan();
+      // boardScan();
       player === 1 ? setPlayer(2) : setPlayer(1);
       return;
-    }
+    
   };
 
   return (
