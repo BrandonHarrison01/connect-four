@@ -59,9 +59,7 @@ function App(props) {
             board[y - 2][x - 2],
             board[y - 3][x - 3],
           ];
-          if(winCheck(slopeDown)){
-            return true
-          };
+          winCheck(slopeDown)
         }
 
         if (board[y][x] && y > 2) {
@@ -71,9 +69,7 @@ function App(props) {
             board[y - 2][x],
             board[y - 3][x],
           ];
-          if(winCheck(vertical)){
-            return true
-          };
+          winCheck(vertical)
         }
 
         if (board[y][x] && y > 2 && x < 4) {

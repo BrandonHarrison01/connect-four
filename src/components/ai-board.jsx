@@ -26,7 +26,7 @@ function AiBoard(props) {
 
     setMoveCounter(moveCounter + 1)
     
-    if(props.boardScan() === false && props.board[0][i] === 0){
+    if(props.board[0][i] === 0){
       aiPlayer(props.board, props.addPiece)
       props.boardScan()
       setMoveCounter(moveCounter + 1)
