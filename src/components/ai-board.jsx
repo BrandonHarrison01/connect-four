@@ -1,36 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom'
 
-// import aiPlayer from '../AiPlayer'
+import aiPlayer from '../AiPlayer'
 
 import PlayerWon from './player-won'
 
 function AiBoard(props) {
   const [moveCounter, setMoveCounter] = useState(0)
-
-  const aiPlayer = (board, addPiece) => {
-
-    // console.log(playerWon, 'adsfas')
-    let last = 6
-    if(board[0][last] > 0){
-      last--
-    }
-    console.log('ai added piece')
-    addPiece(last, 2)
-    return
-  }
+  const [invalidColumn, setInvalidColumn] = useState(false)
 
   const humanAddPiece = i => {
 
-    props.addPiece(i, props.player)
+    if(props.board[0][i] === 0){
+      props.addPiece(i, props.player)
+      aiPlayer(props.board, props.addPiece)
+      setInvalidColumn(false)
+    } else {
+      setInvalidColumn(true)
+    }
 
     setMoveCounter(moveCounter + 1)
     
-    if(props.board[0][i] === 0){
-      aiPlayer(props.board, props.addPiece)
-      props.boardScan()
-      setMoveCounter(moveCounter + 1)
-    }
   } 
   
   console.log('ai rerender', props.playerWon)
@@ -61,6 +51,7 @@ function AiBoard(props) {
         ))}
       </div>
       <Link to='/'>Menu</Link>
+      {invalidColumn && <p>invalid</p>}
       {props.playerWon > 0 && <PlayerWon playerWon={props.playerWon} resetBoard={props.resetBoard} />}
     </div>
   );
