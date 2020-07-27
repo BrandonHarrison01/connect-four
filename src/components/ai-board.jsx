@@ -13,12 +13,13 @@ function AiBoard(props) {
 
     if(props.board[0][i] === 0){
       props.addPiece(i, props.player)
+      console.log('player added piece')
       aiPlayer(props.board, props.addPiece)
       setInvalidColumn(false)
     } else {
       setInvalidColumn(true)
     }
-
+    
     setMoveCounter(moveCounter + 1)
     
   } 
