@@ -9,25 +9,25 @@ import PlayerWon from './player-won'
 function AiBoard(props) {
   const [moveCounter, setMoveCounter] = useState(0)
   const [invalidColumn, setInvalidColumn] = useState(false)
+  const [score, setScore] = useState([0, 0])
   const winner = useBoardScan(props.board)
 
   const humanAddPiece = i => {
 
     if(props.board[0][i] === 0){
       props.addPiece(i, props.player)
+      setInvalidColumn(false)
       console.log('player added piece')
 
       if(winner === 0){
         aiPlayer(props.board, props.addPiece)
       }
 
-      setInvalidColumn(false)
     } else {
       setInvalidColumn(true)
     }
     
     setMoveCounter(moveCounter + 1)
-    
   } 
   
   console.log('ai rerender', props.playerWon)

@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 
 export function useBoardScan(board) {
     // check for 4 connecting pieces
     // runs after every turn
 
-    let [playerWon, setPlayerWon] = useState(0)
+    let playerWon = 0
 
     console.log('running board scan', board)
 
@@ -17,7 +17,9 @@ export function useBoardScan(board) {
       }
 
       console.log('player won', ar[0])
-      setPlayerWon(ar[0])
+      if(!playerWon){
+        playerWon = ar[0]
+      }
       return playerWon;
     };
 
@@ -35,7 +37,9 @@ export function useBoardScan(board) {
             board[y - 2][x - 2],
             board[y - 3][x - 3],
           ];
-          winCheck(slopeDown)
+          if(!playerWon){
+            winCheck(slopeDown)
+          }
         }
 
         if (board[y][x] && y > 2) {
@@ -45,7 +49,9 @@ export function useBoardScan(board) {
             board[y - 2][x],
             board[y - 3][x],
           ];
-          winCheck(vertical)
+          if(!playerWon){
+            winCheck(vertical)
+          }
         }
 
         if (board[y][x] && y > 2 && x < 4) {
@@ -55,7 +61,9 @@ export function useBoardScan(board) {
             board[y - 2][x + 2],
             board[y - 3][x + 3],
           ];
-          winCheck(slopeUp);
+          if(!playerWon){
+            winCheck(slopeUp);
+          }
         }
 
         if (board[y][x] && x < 4) {
@@ -65,7 +73,9 @@ export function useBoardScan(board) {
             board[y][x + 2],
             board[y][x + 3],
           ];
-          winCheck(horizontal)
+          if(!playerWon){
+            winCheck(horizontal)
+          }
         }
 
         if(playerWon > 0){
