@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
 
 import aiPlayer from '../AiPlayer'
@@ -12,16 +12,31 @@ function AiBoard(props) {
   const [score, setScore] = useState([0, 0])
   const winner = useBoardScan(props.board)
 
+  useEffect(() => {
+    if(winner === 1){
+      setScore(prevScore => {
+        prevScore[0]++
+        return prevScore
+      })
+    }
+  
+    if(winner === 2){
+      setScore(prevScore => {
+        prevScore[1]++
+        return prevScore
+      })
+    }
+
+    console.log(score)
+  }, [winner, score])
+
   const humanAddPiece = i => {
 
     if(props.board[0][i] === 0){
       props.addPiece(i, props.player)
       setInvalidColumn(false)
       console.log('player added piece')
-
-      if(winner === 0){
-        aiPlayer(props.board, props.addPiece)
-      }
+      aiPlayer(props.board, props.addPiece)
 
     } else {
       setInvalidColumn(true)
@@ -35,8 +50,8 @@ function AiBoard(props) {
   return (
     <div className='board'>
       <div className='score-board'>
-        <p>Human: {props.score[0]}</p>
-        <p>AI: {props.score[1]}</p>
+        <p>Human: {score[0]}</p>
+        <p>AI: {score[1]}</p>
         <button onClick={props.resetWins}>Clear</button>
       </div>
       <div className='game-controls'>
