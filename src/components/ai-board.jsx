@@ -2,19 +2,25 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom'
 
 import aiPlayer from '../AiPlayer'
+import { useBoardScan } from '../BoardScan'
 
 import PlayerWon from './player-won'
 
 function AiBoard(props) {
   const [moveCounter, setMoveCounter] = useState(0)
   const [invalidColumn, setInvalidColumn] = useState(false)
+  const winner = useBoardScan(props.board)
 
   const humanAddPiece = i => {
 
     if(props.board[0][i] === 0){
       props.addPiece(i, props.player)
       console.log('player added piece')
-      aiPlayer(props.board, props.addPiece)
+
+      if(winner === 0){
+        aiPlayer(props.board, props.addPiece)
+      }
+
       setInvalidColumn(false)
     } else {
       setInvalidColumn(true)
@@ -53,7 +59,7 @@ function AiBoard(props) {
       </div>
       <Link to='/'>Menu</Link>
       {invalidColumn && <p>invalid</p>}
-      {props.playerWon > 0 && <PlayerWon playerWon={props.playerWon} resetBoard={props.resetBoard} />}
+      {winner > 0 && <PlayerWon playerWon={winner} resetBoard={props.resetBoard} />}
     </div>
   );
 }

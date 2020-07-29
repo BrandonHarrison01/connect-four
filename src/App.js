@@ -17,7 +17,7 @@ function App(props) {
     [0, 0, 0, 0, 0, 0, 0],
   ]);
   let [player, setPlayer] = useState(1);
-  let [playerWon, setPlayerWon] = useState(0);
+  // let [playerWon, setPlayerWon] = useState(0);
   let [score, setScore] = useState([0, 0]);
 
   // const boardScan = () => {
@@ -110,7 +110,7 @@ function App(props) {
       [0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0],
     ]);
-    setPlayerWon(0);
+    // setPlayerWon(0);
   };
 
   const resetWins = () => {
@@ -139,11 +139,11 @@ function App(props) {
       }
     }
     
-    let check = boardScan(board)
-    if(check > 0){
-      console.log(`player ${check} won`)
-      setPlayerWon(check)
-    }
+    // let check = boardScan(board)
+    // if(check > 0){
+    //   console.log(`player ${check} won`)
+    //   setPlayerWon(check)
+    // }
     player === 1 ? setPlayer(2) : setPlayer(1);
     return;
     
@@ -166,7 +166,7 @@ function App(props) {
           // boardScan={boardScan}
           board={board}
           player={player}
-          playerWon={playerWon}
+          // playerWon={playerWon}
           // invalidColumn={invalidColumn}
           score={score}
         />
