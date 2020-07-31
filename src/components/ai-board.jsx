@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
 
 import aiPlayer from '../AiPlayer'
-import { useBoardScan } from '../BoardScan'
+import { boardScan } from '../BoardScan'
 
 import PlayerWon from './player-won'
 
@@ -10,7 +10,7 @@ function AiBoard(props) {
   const [moveCounter, setMoveCounter] = useState(0)
   const [invalidColumn, setInvalidColumn] = useState(false)
   const [score, setScore] = useState([0, 0])
-  const winner = useBoardScan(props.board)
+  const winner = boardScan(props.board)
 
   useEffect(() => {
     if(winner === 1){
@@ -44,6 +44,10 @@ function AiBoard(props) {
     
     setMoveCounter(moveCounter + 1)
   } 
+
+  const resetWins = () => {
+    setScore([0, 0])
+  };
   
   console.log('ai rerender', props.playerWon)
 
@@ -51,8 +55,8 @@ function AiBoard(props) {
     <div className='board'>
       <div className='score-board'>
         <p>Human: {score[0]}</p>
-        <p>AI: {score[1]}</p>
-        <button onClick={props.resetWins}>Clear</button>
+        <p>Bot: {score[1]}</p>
+        <button onClick={resetWins}>Clear</button>
       </div>
       <div className='game-controls'>
         {props.board[0].map((val, index) => (

@@ -1,6 +1,4 @@
-// import React, { useState } from 'react'
-
-export function useBoardScan(board) {
+export function boardScan(board) {
     // check for 4 connecting pieces
     // runs after every turn
 
@@ -85,7 +83,5 @@ export function useBoardScan(board) {
       }
     }
 
-    // playerWon === 1 && setBlackWins((prev) => prev + 1);
-    // playerWon === 2 && setRedWins((prev) => prev + 1);
     return 0
   };

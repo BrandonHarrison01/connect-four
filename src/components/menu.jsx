@@ -12,7 +12,7 @@ function Menu() {
             <Link to='/local-pvp'>PVP</Link>
           </li>
           <li>
-            <Link to='/local-ai'>AI</Link>
+            <Link to='/local-ai'>Bot</Link>
           </li>
         </ul>
       </div>
