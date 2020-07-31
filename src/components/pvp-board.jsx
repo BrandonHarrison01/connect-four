@@ -9,6 +9,24 @@ function PvpBoard(props) {
   const [score, setScore] = useState([0, 0])
   const winner = boardScan(props.board)
 
+  useEffect(() => {
+    if(winner === 1){
+      setScore(prevScore => {
+        prevScore[0]++
+        return prevScore
+      })
+    }
+  
+    if(winner === 2){
+      setScore(prevScore => {
+        prevScore[1]++
+        return prevScore
+      })
+    }
+
+    console.log(score)
+  }, [winner, score])
+
   const resetWins = () => {
     setScore([0, 0])
   }
@@ -29,8 +47,8 @@ function PvpBoard(props) {
   return (
     <div className='board'>
       <div className='score-board'>
-        <p>Red: {score[0]}</p>
-        <p>Black: {score[1]}</p>
+        <p>Red: {score[1]}</p>
+        <p>Black: {score[0]}</p>
         <button onClick={resetWins}>Clear</button>
       </div>
       <div className='game-controls'>
