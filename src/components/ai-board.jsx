@@ -76,7 +76,7 @@ function AiBoard(props) {
           </div>
         ))}
       </div>
-      <Link to='/'>Menu</Link>
+      <button onClick={() => props.history.push('/')}>Menu</button>
       {invalidColumn && <p>invalid</p>}
       {winner > 0 && <PlayerWon playerWon={winner} resetBoard={props.resetBoard} />}
     </div>

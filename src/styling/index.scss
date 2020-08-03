@@ -2,3 +2,18 @@
 @import 'board';
 @import 'menu';
 @import 'player-won';
+
+button {
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 7px 20px;
+    max-width: 200px;
+    box-shadow: 2px 5px;
+    
+    &:hover {
+        background-color: rgb(190, 190, 190);
+        box-shadow: 1px 3px;
+        cursor: pointer
+    }
+}

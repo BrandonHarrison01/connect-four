@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 function Menu(props) {
   return (
@@ -18,7 +17,7 @@ function Menu(props) {
       </div>
       <div className='menu-option'>
         <h3>Online</h3>
-        <button className='coming'>Coming Soon</button>
+        <p className='coming'>Coming Soon</p>
       </div>
     </div>
   );

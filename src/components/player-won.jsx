@@ -8,7 +8,7 @@ function PlayerWon(props) {
                 {props.playerWon === 1 && <h3>black wins</h3>}
                 {props.playerWon === 2 && <h3>red wins</h3>}
                 <button onClick={props.resetBoard}>Reset</button>
-                <Link to=''>Menu</Link>
+                <button onClick={() => props.history.push('/')}>Menu</button>
             </div>
         </div>
     )

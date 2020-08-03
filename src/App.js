@@ -56,22 +56,28 @@ function App(props) {
         </Link>
       </header>
       <Route exact path='/' component={Menu} />
-      <Route path='/local-pvp'>
+      <Route path='/local-pvp' render={props =>  
         <PvpBoard
+          {...props}
           addPiece={addPiece}
           resetBoard={resetBoard}
           board={board}
           player={player}
+          // location={props.location}
         />
-      </Route>
-      <Route path='/local-ai'>
+      }
+      />
+      <Route path='/local-ai' render={props => 
         <AiBoard
+          {...props}
           addPiece={addPiece}
           resetBoard={resetBoard}
           board={board}
           player={player}
+          // location={props.location}
         />
-      </Route>
+      }
+      />
     </div>
   );
 }
