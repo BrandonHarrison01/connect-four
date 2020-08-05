@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'
 
 import aiPlayer from '../AiPlayer'
 import { boardScan } from '../BoardScan'
@@ -77,7 +76,7 @@ function AiBoard(props) {
         ))}
       </div>
       <button onClick={() => props.history.push('/')}>Menu</button>
-      {invalidColumn && <p>invalid</p>}
+      {invalidColumn && <p className='error'>Invalid Column</p>}
       {winner > 0 && <PlayerWon playerWon={winner} resetBoard={props.resetBoard} />}
     </div>
   );

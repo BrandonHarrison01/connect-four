@@ -63,7 +63,6 @@ function App(props) {
           resetBoard={resetBoard}
           board={board}
           player={player}
-          // location={props.location}
         />
       }
       />
@@ -74,7 +73,6 @@ function App(props) {
           resetBoard={resetBoard}
           board={board}
           player={player}
-          // location={props.location}
         />
       }
       />
