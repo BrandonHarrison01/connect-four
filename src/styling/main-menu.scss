@@ -1,0 +1,43 @@
+header {
+    background-color: black;
+    text-align: center;
+    padding: 20px;
+
+    .title {
+        color: white;
+        font-size: 2rem;
+        text-decoration: none;
+    }
+}
+
+.menu {
+    margin-top: 20px;
+    text-align: center;
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .menu-option {
+        width: 300px;
+        background-color: rgb(255, 238, 0);
+        padding: 30px;
+        margin: 50px auto;
+        border: 2px solid black;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        button {
+            font-size: 1rem;
+            padding: 7px 50px;
+            margin-top: 20px;
+
+            // &:last-child {
+            // }
+        }
+
+        
+    }
+}
